@@ -559,35 +559,72 @@ footer{background:var(--ink);padding:56px 0 24px}
       </div>
       <div class="orc-form">
         <h3>Solicitar Orçamento Gratuito</h3>
-        <p style="font-size:.82rem;color:var(--muted);margin-bottom:20px;line-height:1.7;">
-          Preencha o formulário abaixo — pode anexar o seu documento directamente.<br>
-          Receberá resposta em menos de 2 horas úteis.
-        </p>
-        <div style="background:var(--orange-bg);border:1px solid rgba(224,123,42,.25);border-radius:var(--radius);padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;">
-          <span style="font-size:1.4rem;">📎</span>
-          <span style="font-size:.82rem;color:var(--ink2);line-height:1.6;">
-            <strong>Documento incluído!</strong> O Google Forms permite anexar o ficheiro directamente — PDF, Word, Excel e outros formatos aceites.
-          </span>
-        </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe7PR6oo6BJAh2X4a7S07KriaFhdPeSoFWP1ZbHhrQgSK1SEA/viewform?usp=pp_url"
-           target="_blank"
-           style="display:block;background:var(--orange);color:white;text-align:center;padding:16px;border-radius:var(--radius);font-size:.85rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;text-decoration:none;margin-bottom:16px;transition:background .25s;"
-           onmouseover="this.style.background='#c96a1a'" onmouseout="this.style.background='#E07B2A'">
-          📋 Abrir Formulário de Orçamento →
-        </a>
-        <div style="border:1px solid var(--sand3);border-radius:var(--radius);overflow:hidden;">
-          <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSe7PR6oo6BJAh2X4a7S07KriaFhdPeSoFWP1ZbHhrQgSK1SEA/viewform?embedded=true"
-            width="100%" height="680" frameborder="0" marginheight="0" marginwidth="0"
-            style="display:block;">
-            A carregar formulário...
-          </iframe>
-        </div>
-        <p class="form-alt" style="margin-top:14px;">Ou contacte directamente: <a href="https://wa.me/258877498390" target="_blank">WhatsApp</a> · <a href="mailto:claytonmachaie@gmail.com">Email</a></p>
+        <div id="fmsg" class="form-msg-box"></div>
+        <form id="leximoz-form" onsubmit="handleSubmit(event)">
+          <div class="form-grid-2">
+            <div class="field"><label>Nome completo *</label><input type="text" id="f-nome" placeholder="O seu nome"></div>
+            <div class="field"><label>Email *</label><input type="email" id="f-email" placeholder="email@exemplo.com"></div>
+          </div>
+          <div class="field"><label>Telefone / WhatsApp</label><input type="tel" id="f-tel" placeholder="+258 84 000 0000"></div>
+          <div class="form-grid-2">
+            <div class="field">
+              <label>Par linguístico *</label>
+              <select id="f-par">
+                <option value="" disabled selected>Seleccione</option>
+                <option>Português → Inglês</option>
+                <option>Inglês → Português</option>
+                <option>Português → Francês</option>
+                <option>Francês → Português</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Tipo de serviço</label>
+              <select id="f-tipo">
+                <option value="" disabled selected>Seleccione</option>
+                <option>Tradução Técnica</option>
+                <option>Tradução Jurídica</option>
+                <option>Localização Digital</option>
+                <option>Tradução Académica</option>
+                <option>Revisão de Textos</option>
+                <option>Interpretação</option>
+                <option>Outro</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Prazo desejado</label>
+            <select id="f-prazo">
+              <option value="" disabled selected>Seleccione</option>
+              <option>Urgente (24h)</option>
+              <option>2–3 dias úteis</option>
+              <option>1 semana</option>
+              <option>Flexível</option>
+            </select>
+          </div>
+          <div class="field"><label>Mensagem</label><textarea id="f-msg" placeholder="Descreva o projecto ou dúvidas que tiver..."></textarea></div>
+
+          <!-- MÉTODO DE CONTACTO -->
+          <div class="field">
+            <label>Como prefere enviar?</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;">
+              <label style="display:flex;align-items:center;gap:10px;background:var(--sand);border:1.5px solid var(--sand3);border-radius:var(--radius);padding:12px 14px;cursor:pointer;transition:border-color .2s;font-size:.85rem;font-weight:400;" id="lbl-email">
+                <input type="radio" name="metodo" value="email" checked onchange="selectMetodo()" style="accent-color:#E07B2A;width:16px;height:16px;">
+                📧 &nbsp;Email
+              </label>
+              <label style="display:flex;align-items:center;gap:10px;background:var(--sand);border:1.5px solid var(--sand3);border-radius:var(--radius);padding:12px 14px;cursor:pointer;transition:border-color .2s;font-size:.85rem;font-weight:400;" id="lbl-whatsapp">
+                <input type="radio" name="metodo" value="whatsapp" onchange="selectMetodo()" style="accent-color:#25D366;width:16px;height:16px;">
+                📱 &nbsp;WhatsApp
+              </label>
+            </div>
+            <p id="metodo-hint" style="font-size:.72rem;color:var(--muted);margin-top:8px;line-height:1.5;">
+              📧 O seu email abre com os dados preenchidos — basta <strong>anexar o documento</strong> e clicar Enviar.
+            </p>
+          </div>
+
+          <button type="submit" class="form-submit" id="submit-btn">Enviar por Email →</button>
+        </form>
+        <p class="form-alt">Contacto directo: <a href="https://wa.me/258877498390" target="_blank">WhatsApp</a> · <a href="mailto:claytonmachaie@gmail.com">Email</a></p>
       </div>
-    </div>
-  </div>
-</section>
 
 <!-- FOOTER -->
 <footer>
@@ -640,9 +677,30 @@ footer{background:var(--ink);padding:56px 0 24px}
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
 emailjs.init('XqEkGJnixDvXDac-Q')
+
+function selectMetodo(){
+  var m = document.querySelector('input[name="metodo"]:checked').value
+  var hint = document.getElementById('metodo-hint')
+  var btn  = document.getElementById('submit-btn')
+  var lblE = document.getElementById('lbl-email')
+  var lblW = document.getElementById('lbl-whatsapp')
+  if(m === 'email'){
+    hint.innerHTML = '📧 O seu email abre com os dados preenchidos — basta <strong>anexar o documento</strong> e clicar Enviar.'
+    btn.textContent = 'Enviar por Email →'
+    btn.style.background = '#E07B2A'
+    lblE.style.borderColor = '#E07B2A'
+    lblW.style.borderColor = 'var(--sand3)'
+  } else {
+    hint.innerHTML = '📱 O WhatsApp abre com os dados preenchidos — basta <strong>enviar o documento</strong> na conversa.'
+    btn.textContent = 'Enviar por WhatsApp →'
+    btn.style.background = '#25D366'
+    lblW.style.borderColor = '#25D366'
+    lblE.style.borderColor = 'var(--sand3)'
+  }
+}
 
 function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
 window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40)})
@@ -658,6 +716,7 @@ async function handleSubmit(e){
   var tipo  = document.getElementById('f-tipo').value
   var prazo = document.getElementById('f-prazo').value
   var msg   = document.getElementById('f-msg').value.trim()
+  var metodo = document.querySelector('input[name="metodo"]:checked').value
   var box   = document.getElementById('fmsg')
   var btn   = document.querySelector('.form-submit')
 
@@ -667,53 +726,66 @@ async function handleSubmit(e){
     return
   }
 
-  box.className='form-msg-box success'; box.style.display='block'
-  box.textContent='⏳ A enviar o seu pedido...'
-  btn.disabled=true; btn.textContent='A enviar...'
+  var resumo =
+    'Nome: ' + nome + '\n' +
+    'Email: ' + (email||'Não indicado') + '\n' +
+    'Telefone: ' + (tel||'Não indicado') + '\n' +
+    'Par linguístico: ' + par + '\n' +
+    'Tipo de serviço: ' + (tipo||'Não especificado') + '\n' +
+    'Prazo: ' + (prazo||'Não especificado') + '\n\n' +
+    'Mensagem:\n' + (msg||'Sem mensagem adicional.') + '\n\n' +
+    '--- Por favor anexe o documento a este email. ---'
 
-  try {
-    await emailjs.send('service_uwf317h', 'template_isa4cxd', {
-      nome:     nome,
-      email:    email    || 'Não indicado',
-      telefone: tel      || 'Não indicado',
-      par:      par,
-      tipo:     tipo     || 'Não especificado',
-      prazo:    prazo    || 'Não especificado',
-      mensagem: msg      || 'Sem mensagem adicional.',
-      reply_to: email
-    })
+  if(metodo === 'email'){
+    // Send notification via EmailJS
+    box.className='form-msg-box success'; box.style.display='block'
+    box.textContent='⏳ A preparar...'
+    btn.disabled=true; btn.textContent='A enviar...'
 
+    try {
+      await emailjs.send('service_uwf317h', 'template_isa4cxd', {
+        nome:     nome,
+        email:    email    || 'Não indicado',
+        telefone: tel      || 'Não indicado',
+        par:      par,
+        tipo:     tipo     || 'Não especificado',
+        prazo:    prazo    || 'Não especificado',
+        mensagem: msg      || 'Sem mensagem adicional.',
+        reply_to: email
+      })
+    } catch(err){ /* silent — mailto still opens */ }
+
+    // Open mailto so client can attach document
+    var assunto = encodeURIComponent('📋 Pedido de Orçamento LexiMoz — ' + par)
+    var corpo   = encodeURIComponent(resumo)
+    box.innerHTML =
+      '✅ <strong>A abrir o seu email...</strong><br>' +
+      '<small>O email abre com os dados preenchidos. Basta <strong>anexar o documento</strong> e clicar Enviar.</small>'
+    setTimeout(()=>{
+      window.location.href = 'mailto:claytonmachaie@gmail.com?subject=' + assunto + '&body=' + corpo
+    }, 800)
     document.getElementById('leximoz-form').reset()
 
-    var waText = encodeURIComponent(
-      '🌍 *Pedido de Orçamento — LexiMoz*\n\n'+
-      '👤 Nome: '+nome+'\n'+
-      '📧 Email: '+(email||'Não indicado')+'\n'+
-      '📱 Telefone: '+(tel||'Não indicado')+'\n'+
-      '🔤 Par: '+par+'\n'+
-      '📄 Serviço: '+(tipo||'Não especificado')+'\n'+
-      '⏱ Prazo: '+(prazo||'Não especificado')+'\n\n'+
-      '💬 '+(msg||'Sem mensagem adicional.')+'\n\n'+
-      '📎 Segue o documento para tradução:'
+  } else {
+    // WhatsApp
+    var t = encodeURIComponent(
+      '🌍 *Pedido de Orçamento — LexiMoz*\n\n' +
+      '👤 Nome: ' + nome + '\n' +
+      '📧 Email: ' + (email||'Não indicado') + '\n' +
+      '📱 Telefone: ' + (tel||'Não indicado') + '\n' +
+      '🔤 Par: ' + par + '\n' +
+      '📄 Serviço: ' + (tipo||'Não especificado') + '\n' +
+      '⏱ Prazo: ' + (prazo||'Não especificado') + '\n\n' +
+      '💬 ' + (msg||'Sem mensagem adicional.') + '\n\n' +
+      '📎 Segue o documento nesta conversa.'
     )
-
-    box.innerHTML =
-      '<strong>✅ Pedido enviado!</strong><br><br>' +
-      '📧 Os seus dados chegaram ao nosso email.<br><br>' +
-      '<strong>📎 Passo 2 — Envie o documento pelo WhatsApp:</strong><br>' +
-      '<small>Clique no botão verde, a conversa abre com os dados já preenchidos.<br>Basta anexar o ficheiro e enviar.</small><br><br>' +
-      '<a href="https://wa.me/258877498390?text=' + waText + '" target="_blank" ' +
-      'style="display:inline-block;margin-top:4px;background:#25D366;color:white;padding:13px 22px;' +
-      'border-radius:6px;text-decoration:none;font-weight:bold;font-size:14px;">' +
-      '📱 Enviar Documento pelo WhatsApp →</a>'
-
-  } catch(err){
-    box.className='form-msg-box error'
-    box.textContent='❌ Erro ao enviar (código: '+err.status+'). Contacte via WhatsApp: +258 87 749 8390'
-    console.error('EmailJS error:', err)
+    box.className='form-msg-box success'; box.style.display='block'
+    box.innerHTML='✅ <strong>A abrir WhatsApp...</strong><br><small>A conversa abre com os dados preenchidos. Basta enviar o documento.</small>'
+    document.getElementById('leximoz-form').reset()
+    setTimeout(()=>{window.open('https://wa.me/258877498390?text='+t,'_blank')},800)
   }
 
-  btn.disabled=false; btn.textContent='Solicitar Orçamento Gratuito →'
+  btn.disabled=false; btn.textContent='Enviar →'
 }
 </script>
 </body>
