@@ -559,61 +559,31 @@ footer{background:var(--ink);padding:56px 0 24px}
       </div>
       <div class="orc-form">
         <h3>Solicitar Orçamento Gratuito</h3>
-        <div id="fmsg" class="form-msg-box"></div>
-        <form id="leximoz-form" action="https://formspree.io/f/mojkpdnp" method="POST" enctype="multipart/form-data" onsubmit="handleSubmit(event)">
-          <div class="form-grid-2">
-            <div class="field"><label>Nome completo *</label><input type="text" name="Nome" id="f-nome" placeholder="O seu nome" required></div>
-            <div class="field"><label>Email *</label><input type="email" name="Email" id="f-email" placeholder="email@exemplo.com" required></div>
-          </div>
-          <div class="field"><label>Telefone / WhatsApp</label><input type="tel" name="Telefone" id="f-tel" placeholder="+258 84 000 0000"></div>
-          <div class="form-grid-2">
-            <div class="field">
-              <label>Par linguístico *</label>
-              <select name="Par_Linguistico" id="f-par" required>
-                <option value="" disabled selected>Seleccione</option>
-                <option>Português → Inglês</option>
-                <option>Inglês → Português</option>
-                <option>Português → Francês</option>
-                <option>Francês → Português</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Tipo de serviço</label>
-              <select name="Tipo_de_Servico" id="f-tipo">
-                <option value="" disabled selected>Seleccione</option>
-                <option>Tradução Técnica</option>
-                <option>Tradução Jurídica</option>
-                <option>Localização Digital</option>
-                <option>Tradução Académica</option>
-                <option>Revisão de Textos</option>
-                <option>Interpretação</option>
-                <option>Outro</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-grid-2">
-            <div class="field">
-              <label>Prazo desejado</label>
-              <select name="Prazo" id="f-prazo">
-                <option value="" disabled selected>Seleccione</option>
-                <option>Urgente (24h)</option>
-                <option>2–3 dias úteis</option>
-                <option>1 semana</option>
-                <option>Flexível</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Anexar ficheiro</label>
-              <input type="file" name="Ficheiro" id="f-file" accept=".pdf,.doc,.docx,.txt,.xls,.xlsx,.ppt,.pptx">
-              <span class="file-hint">PDF, Word, Excel — máx. 10MB</span>
-            </div>
-          </div>
-          <div class="field"><label>Mensagem</label><textarea name="Mensagem" id="f-msg" placeholder="Descreva o projecto ou dúvidas que tiver..."></textarea></div>
-          <input type="hidden" name="_subject" value="🌍 Novo Pedido de Orçamento — LexiMoz">
-          <input type="hidden" name="_replyto" id="reply-email">
-          <button type="submit" class="form-submit">Solicitar Orçamento Gratuito →</button>
-        </form>
-        <p class="form-alt">Ou contacte directamente: <a href="https://wa.me/258877498390" target="_blank">WhatsApp</a> · <a href="/cdn-cgi/l/email-protection#cba8a7aab2bfa4a5a6aaa8a3aaa2ae8baca6aaa2a7e5a8a4a6">Email</a></p>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:20px;line-height:1.7;">
+          Preencha o formulário abaixo — pode anexar o seu documento directamente.<br>
+          Receberá resposta em menos de 2 horas úteis.
+        </p>
+        <div style="background:var(--orange-bg);border:1px solid rgba(224,123,42,.25);border-radius:var(--radius);padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;">
+          <span style="font-size:1.4rem;">📎</span>
+          <span style="font-size:.82rem;color:var(--ink2);line-height:1.6;">
+            <strong>Documento incluído!</strong> O Google Forms permite anexar o ficheiro directamente — PDF, Word, Excel e outros formatos aceites.
+          </span>
+        </div>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe7PR6oo6BJAh2X4a7S07KriaFhdPeSoFWP1ZbHhrQgSK1SEA/viewform?usp=pp_url"
+           target="_blank"
+           style="display:block;background:var(--orange);color:white;text-align:center;padding:16px;border-radius:var(--radius);font-size:.85rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;text-decoration:none;margin-bottom:16px;transition:background .25s;"
+           onmouseover="this.style.background='#c96a1a'" onmouseout="this.style.background='#E07B2A'">
+          📋 Abrir Formulário de Orçamento →
+        </a>
+        <div style="border:1px solid var(--sand3);border-radius:var(--radius);overflow:hidden;">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSe7PR6oo6BJAh2X4a7S07KriaFhdPeSoFWP1ZbHhrQgSK1SEA/viewform?embedded=true"
+            width="100%" height="680" frameborder="0" marginheight="0" marginwidth="0"
+            style="display:block;">
+            A carregar formulário...
+          </iframe>
+        </div>
+        <p class="form-alt" style="margin-top:14px;">Ou contacte directamente: <a href="https://wa.me/258877498390" target="_blank">WhatsApp</a> · <a href="mailto:claytonmachaie@gmail.com">Email</a></p>
       </div>
     </div>
   </div>
