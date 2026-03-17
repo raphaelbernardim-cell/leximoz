@@ -613,7 +613,7 @@ footer{background:var(--ink);padding:56px 0 24px}
           <input type="hidden" name="_replyto" id="reply-email">
           <button type="submit" class="form-submit">Solicitar Orçamento Gratuito →</button>
         </form>
-        <p class="form-alt">Ou contacte directamente: <a href="https://wa.me/258877498390" target="_blank">WhatsApp</a> · <a href="mailto:claytonmachaie@gmail.com">Email</a></p>
+        <p class="form-alt">Ou contacte directamente: <a href="https://wa.me/258877498390" target="_blank">WhatsApp</a> · <a href="/cdn-cgi/l/email-protection#cba8a7aab2bfa4a5a6aaa8a3aaa2ae8baca6aaa2a7e5a8a4a6">Email</a></p>
       </div>
     </div>
   </div>
@@ -656,7 +656,7 @@ footer{background:var(--ink);padding:56px 0 24px}
       <div class="footer-col">
         <h5>Contacto</h5>
         <ul>
-          <li><a href="mailto:claytonmachaie@gmail.com">claytonmachaie@gmail.com</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#2e4d424f575a4140434f4d464f474b6e49434f4742004d4143"><span class="__cf_email__" data-cfemail="50333c3129243f3e3d31333831393510373d31393c7e333f3d">[email&#160;protected]</span></a></li>
           <li><a href="https://wa.me/258877498390">+258 87 749 8390</a></li>
           <li><a href="https://wa.me/258877498390">WhatsApp</a></li>
           <li><a href="#inicio">Maputo, Moçambique</a></li>
@@ -670,7 +670,10 @@ footer{background:var(--ink);padding:56px 0 24px}
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
+emailjs.init('XqEkGJnixDvXDac-Q')
+
 function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
 window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40)})
 function toggleMenu(){document.getElementById('mobile-menu').classList.toggle('open')}
@@ -688,45 +691,60 @@ async function handleSubmit(e){
   var box   = document.getElementById('fmsg')
   var btn   = document.querySelector('.form-submit')
 
-  // set reply-to field
-  document.getElementById('reply-email').value = email
+  if(!nome || !par){
+    box.className='form-msg-box error'; box.style.display='block'
+    box.textContent='⚠ Por favor preencha o nome e o par linguístico.'
+    return
+  }
 
-  // show loading state
   box.className='form-msg-box success'; box.style.display='block'
   box.textContent='⏳ A enviar o seu pedido...'
-  btn.disabled = true; btn.textContent = 'A enviar...'
+  btn.disabled=true; btn.textContent='A enviar...'
 
   try {
-    var formData = new FormData(document.getElementById('leximoz-form'))
-    var resp = await fetch('https://formspree.io/f/mojkpdnp', {
-      method: 'POST', body: formData,
-      headers: {'Accept': 'application/json'}
+    await emailjs.send('service_uwf317h', 'template_isa4cxd', {
+      nome:     nome,
+      email:    email    || 'Não indicado',
+      telefone: tel      || 'Não indicado',
+      par:      par,
+      tipo:     tipo     || 'Não especificado',
+      prazo:    prazo    || 'Não especificado',
+      mensagem: msg      || 'Sem mensagem adicional.',
+      reply_to: email
     })
-    if(resp.ok){
-      box.textContent = '✅ Pedido enviado com sucesso! Vai receber confirmação em ' + email + '. A abrir WhatsApp...'
-      document.getElementById('leximoz-form').reset()
-      var t = encodeURIComponent(
-        '🌍 *Pedido de Orçamento — LexiMoz*\n\n' +
-        '👤 Nome: ' + nome + '\n' +
-        '📧 Email: ' + (email||'Não indicado') + '\n' +
-        '📱 Telefone: ' + (tel||'Não indicado') + '\n' +
-        '🔤 Par: ' + par + '\n' +
-        '📄 Serviço: ' + (tipo||'Não especificado') + '\n' +
-        '⏱ Prazo: ' + (prazo||'Não especificado') + '\n\n' +
-        '💬 ' + (msg||'Sem mensagem adicional.')
-      )
-      setTimeout(()=>{ window.open('https://wa.me/258877498390?text='+t,'_blank') }, 1500)
-    } else {
-      box.className='form-msg-box error'
-      box.textContent='❌ Erro ao enviar. Por favor contacte via WhatsApp ou email directamente.'
-    }
+
+    document.getElementById('leximoz-form').reset()
+
+    var waText = encodeURIComponent(
+      '🌍 *Pedido de Orçamento — LexiMoz*\n\n'+
+      '👤 Nome: '+nome+'\n'+
+      '📧 Email: '+(email||'Não indicado')+'\n'+
+      '📱 Telefone: '+(tel||'Não indicado')+'\n'+
+      '🔤 Par: '+par+'\n'+
+      '📄 Serviço: '+(tipo||'Não especificado')+'\n'+
+      '⏱ Prazo: '+(prazo||'Não especificado')+'\n\n'+
+      '💬 '+(msg||'Sem mensagem adicional.')+'\n\n'+
+      '📎 Segue o documento para tradução:'
+    )
+
+    box.innerHTML =
+      '<strong>✅ Pedido enviado!</strong><br><br>' +
+      '📧 Os seus dados chegaram ao nosso email.<br><br>' +
+      '<strong>📎 Passo 2 — Envie o documento pelo WhatsApp:</strong><br>' +
+      '<small>Clique no botão verde, a conversa abre com os dados já preenchidos.<br>Basta anexar o ficheiro e enviar.</small><br><br>' +
+      '<a href="https://wa.me/258877498390?text=' + waText + '" target="_blank" ' +
+      'style="display:inline-block;margin-top:4px;background:#25D366;color:white;padding:13px 22px;' +
+      'border-radius:6px;text-decoration:none;font-weight:bold;font-size:14px;">' +
+      '📱 Enviar Documento pelo WhatsApp →</a>'
+
   } catch(err){
     box.className='form-msg-box error'
-    box.textContent='❌ Sem ligação. Contacte via WhatsApp: +258 87 749 8390'
+    box.textContent='❌ Erro ao enviar (código: '+err.status+'). Contacte via WhatsApp: +258 87 749 8390'
+    console.error('EmailJS error:', err)
   }
-  btn.disabled = false; btn.textContent = 'Solicitar Orçamento Gratuito →'
+
+  btn.disabled=false; btn.textContent='Solicitar Orçamento Gratuito →'
 }
 </script>
 </body>
 </html>
- 
